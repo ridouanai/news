@@ -1,6 +1,6 @@
-#News API
+# News API
 
-##The system rules
+## The system rules
 
 * First one
 
