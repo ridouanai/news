@@ -2,7 +2,6 @@ package com.learning.application.mapper;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.learning.application.dal.entity.NewsEntity;
-import org.hibernate.cfg.NotYetImplementedException;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
@@ -20,16 +19,23 @@ public class JsonToNewsEntityMapper implements NewsEntityMapper {
         {
             for (JsonNode jsonNode : articles)
             {
-                listOfNews.add(CreateNewsEntity(jsonNode));
+                Optional<NewsEntity> optionalNewsEntity = CreateNewsEntity(jsonNode);
+                if (optionalNewsEntity.isPresent())
+                {
+                    listOfNews.add(optionalNewsEntity.get());
+                }
             }
         }
-
         return listOfNews;
     }
 
     @Override
-    public NewsEntity CreateNewsEntity(JsonNode newsJsonNode) {
-        return new NewsEntity(
-            newsJsonNode.get("source").get("id").toString(), newsJsonNode.get("source").get("name").toString(), newsJsonNode.get("author").toString(), newsJsonNode.get("title").toString(), newsJsonNode.get("description").toString(), newsJsonNode.get("url").toString(), newsJsonNode.get("publishedAt").toString(), newsJsonNode.get("content").toString());
+    public Optional<NewsEntity> CreateNewsEntity(JsonNode newsJsonNode) {
+        if (newsJsonNode.get("source").get("id").toString().equals("null"))
+            return Optional.empty();
+        String content = newsJsonNode.get("content").toString();
+        String description = newsJsonNode.get("description").toString();
+        return Optional.of(new NewsEntity(
+                newsJsonNode.get("source").get("id").toString(), newsJsonNode.get("source").get("name").toString(), newsJsonNode.get("author").toString(), newsJsonNode.get("title").toString(), (description.length() <= 255) ? description : description.substring(0, 255), newsJsonNode.get("url").toString(), newsJsonNode.get("publishedAt").toString(), (content.length() <= 200) ? content : content.substring(0, 200)));
     }
 }
