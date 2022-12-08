@@ -1,5 +1,6 @@
 package com.learning.application.dal.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import javax.persistence.Column;
@@ -10,6 +11,7 @@ import javax.persistence.Table;
 @Data
 @Entity
 @Table(name = "news")
+@AllArgsConstructor
 public class NewsEntity {
 
     @Id

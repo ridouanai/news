@@ -2,6 +2,8 @@ package com.learning.application.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.learning.application.mapper.NewsEntityMapper;
+import org.hibernate.cfg.NotYetImplementedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,13 +18,18 @@ public class NewsService implements INewsService{
     @Autowired
     private ObjectMapper objectMapper;
 
+    @Autowired
+    private NewsEntityMapper newsEntityMapper;
+
     @Override
     public JsonNode getNews() {
-        return null;
+        throw new NotYetImplementedException();
     }
 
     @Override
     public JsonNode getAllNews() throws IOException {
-        return objectMapper.readTree(new URL(api_url));
+        JsonNode result = objectMapper.readTree(new URL(api_url));
+        var res = newsEntityMapper.CreateNewsEntities(result);
+        return result;
     }
 }
