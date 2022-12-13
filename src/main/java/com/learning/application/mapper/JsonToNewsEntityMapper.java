@@ -31,11 +31,11 @@ public class JsonToNewsEntityMapper implements NewsEntityMapper {
 
     @Override
     public Optional<NewsEntity> CreateNewsEntity(JsonNode newsJsonNode) {
-        if (newsJsonNode.get("source").get("id").toString().equals("null"))
+        if (newsJsonNode.get("source").get("id").asText().equals("null"))
             return Optional.empty();
-        String content = newsJsonNode.get("content").toString();
-        String description = newsJsonNode.get("description").toString();
+        String content = newsJsonNode.get("content").asText();
+        String description = newsJsonNode.get("description").asText();
         return Optional.of(new NewsEntity(
-                newsJsonNode.get("source").get("id").toString(), newsJsonNode.get("source").get("name").toString(), newsJsonNode.get("author").toString(), newsJsonNode.get("title").toString(), (description.length() <= 255) ? description : description.substring(0, 255), newsJsonNode.get("url").toString(), newsJsonNode.get("publishedAt").toString(), (content.length() <= 200) ? content : content.substring(0, 200)));
+                newsJsonNode.get("source").get("id").asText(), newsJsonNode.get("source").get("name").asText(), newsJsonNode.get("author").asText(), newsJsonNode.get("title").asText(), (description.length() <= 255) ? description : description.substring(0, 255), newsJsonNode.get("url").asText(), newsJsonNode.get("publishedAt").asText(), (content.length() <= 200) ? content : content.substring(0, 200)));
     }
 }

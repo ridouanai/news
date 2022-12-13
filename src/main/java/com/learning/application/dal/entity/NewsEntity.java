@@ -17,27 +17,27 @@ import javax.persistence.Table;
 public class NewsEntity {
 
     @Id
-    @Column (name = "Id")
+    @Column
     private String id;
 
-    @Column (name = "Name")
+    @Column
     private String name;
 
-    @Column (name = "Author")
+    @Column
     private String author;
 
-    @Column (name = "Title")
+    @Column
     private String title;
 
-    @Column (name = "Description")
+    @Column
     private String description;
 
-    @Column (name = "Url")
+    @Column
     private String url;
 
-    @Column (name = "PublishedAt")
+    @Column
     private String publishedAt;
 
-    @Column (name = "Content", length = 200)
+    @Column (length = 200)
     private String content;
 }

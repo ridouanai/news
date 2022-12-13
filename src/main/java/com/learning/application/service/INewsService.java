@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 
 public interface INewsService {
-    JsonNode getNews();
+    JsonNode getNewsById(String id);
 
     JsonNode getAllNews() throws IOException;
 }

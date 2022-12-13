@@ -1,6 +1,5 @@
 package com.learning.application.controller;
 
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.learning.application.service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,13 +16,13 @@ public class NewsController {
     private NewsService service;
 
     @GetMapping("/news")
-    JsonNode getAllNews() throws IOException {
+    JsonNode getAllNews() {
         return service.getAllNews();
     }
 
     @GetMapping("/news/{id}")
     JsonNode getNews(@PathVariable String id) {
-        return service.getNews();
+        return service.getNewsById(id);
     }
 
 }
