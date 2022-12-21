@@ -1,6 +1,7 @@
 package com.learning.application.controller;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.learning.application.service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,8 +22,18 @@ public class NewsController {
     }
 
     @GetMapping("/news/{id}")
-    JsonNode getNews(@PathVariable String id) {
+    JsonNode getNews(@PathVariable long id) {
         return service.getNewsById(id);
     }
 
+    @GetMapping("/news/delete/{id}")
+    JsonNode deleteNews(@PathVariable long id) {
+        return service.deleteNews(id);
+    }
+
+    @GetMapping("news/topic={title}")
+    JsonNode getNewsByTopic(@PathVariable String title)
+    {
+        return service.getNewsByTopic(title);
+    }
 }
